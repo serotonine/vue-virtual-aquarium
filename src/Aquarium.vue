@@ -1,5 +1,7 @@
 <script setup>
 import Fish from "./Fish.vue";
+import { isFishFlipped } from "./utils/fishUtility";
+
 
 const props = defineProps({
   fishes: { type: Object, required: true },
@@ -14,11 +16,8 @@ const rand = () => Math.floor(Math.random() * 80);
       :key="fish.id"
       :fish="fish"
       :inAquarium="true"
+      :coords="{left:rand(), top:rand(), flipped: isFishFlipped()}"
       @dead="$emit('dead', fish.id)"
-      :style="[
-      { left: `${rand()}%` },
-      { top: `${rand()}%` },
-    ]"
     ></Fish>
   </section>
 </template>
