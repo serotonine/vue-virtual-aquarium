@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from "vue";
+import { ref, reactive } from "vue";
 import Aquarium from "./Aquarium.vue";
 import Fish from "./Fish.vue";
 import FishForm from "./FishForm.vue";
@@ -19,13 +19,9 @@ const aquariumFishes = reactive([]);
 // Select fish in aside.
 const selectedFish = ref(null);
 const aquariumRate = ref({
-  nbFish:0,
-  nbDeadFishes:0,
-})
-
-// Computed.
-
-// Functions.
+  nbFish: 0,
+  nbDeadFishes: 0,
+});
 
 // Aside.
 const reset = () => {
@@ -46,7 +42,7 @@ const addFishToAquarium = (name) => {
   reset();
 };
 const removeFishFromAquarium = (id) => {
-setTimeout(() => {
+  setTimeout(() => {
     const index = aquariumFishes.findIndex((fish) => fish.id === id);
     aquariumFishes.splice(index, 1);
     aquariumRate.value.nbDeadFishes++;
@@ -72,7 +68,13 @@ setTimeout(() => {
         :selected-fish="selectedFish"
         @submit:add-fish="addFishToAquarium"
       ></fish-form>
-      <section class="aquarium-rate text-center"><p>{{ `Dead Fishes : ${aquariumRate.nbDeadFishes} /  ${aquariumRate.nbFish}` }}</p></section>
+      <section class="aquarium-rate text-center">
+        <p>
+          {{
+            `Dead Fishes : ${aquariumRate.nbDeadFishes} /  ${aquariumRate.nbFish}`
+          }}
+        </p>
+      </section>
     </section>
     <aquarium
       :fishes="aquariumFishes"
